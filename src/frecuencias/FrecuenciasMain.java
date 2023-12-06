@@ -30,6 +30,8 @@ public class FrecuenciasMain {
         // mostramos la imagen original
         JFrameImg frame2 = new JFrameImg(HerramientasImagen.toImage(biFrecuencias));
 
-        
+        //obtenemos la imagen resultante de aplicar la EFT inverse
+        BufferedImage resultante = gestor.obtenerImagenEspacial();
+        JFrameImg frame3 = new JFrameImg(HerramientasImagen.toImage(resultante));
     }
 }
