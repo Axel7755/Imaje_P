@@ -1,26 +1,26 @@
 package frecuencias;
 
-import frecuencias.HerramientasColor.CanalColor;
 import java.awt.image.BufferedImage;
 
 import espacial.OperacionesBasicas;
 
-public class Gestor {
+
+public class GestorGrises {
+
+
     NumeroComplejo[][] transformada;
-    
-    public Gestor() {
-    
+
+    // constructor por defecto
+    public GestorGrises() {
     
     }
-    
-     
-    
-public NumeroComplejo[][] obtenerDatosPorCanal(BufferedImage imagenOriginal, CanalColor color) {
+
+    public NumeroComplejo[][] obtenerDatos(BufferedImage imagenOriginal) {
         NumeroComplejo[][] aux = new NumeroComplejo[imagenOriginal.getWidth()][imagenOriginal.getHeight()];
         // obtenemos los datos por canal
         for (int y = 0; y < imagenOriginal.getHeight(); y++) {
             for (int x = 0; x < imagenOriginal.getWidth(); x++) {
-                aux[x][y] = new NumeroComplejo(HerramientasColor.obtenerValorPorCanal(imagenOriginal.getRGB(x, y), color), 0);
+                aux[x][y] = new NumeroComplejo(HerramientasColor.obtenerValorGris(imagenOriginal.getRGB(x, y)), 0);
             }
         }
         return aux;
@@ -46,7 +46,7 @@ public NumeroComplejo[][] obtenerDatosPorCanal(BufferedImage imagenOriginal, Can
                     // setear la info a la imagen 
                     // el que se ecuentre en la imagen 
                     int color1 = aux.getRGB(x, y);
-                    int color2 = obtenerColorRealDeFrecuencia(ejeX, ejeY, transformada, HerramientasColor.CanalColor.VERDE);
+                    int color2 = obtenerColorRealDeFrecuenciaGrises(ejeX, ejeY, transformada);
                     int rgb = HerramientasColor.acumularColor(color1, color2);
                     aux.setRGB(x, y, rgb);
 
@@ -55,8 +55,9 @@ public NumeroComplejo[][] obtenerDatosPorCanal(BufferedImage imagenOriginal, Can
         
         return aux;
     }
-    
-     public BufferedImage obtenerImagenEspacial() {
+
+
+    public BufferedImage obtenerImagenEspacial() {
         /// obtenemos las dimensiones
         int anchoImagen = this.transformada.length;
         int altoImagen = this.transformada.length;
@@ -73,7 +74,7 @@ public NumeroComplejo[][] obtenerDatosPorCanal(BufferedImage imagenOriginal, Can
 
                     int color = (int) Math.abs(transformadaInv[x][y].getParteReal());
                     color = OperacionesBasicas.validar(color);
-                    color = HerramientasColor.obtenerRGBPorCanal(color, HerramientasColor.CanalColor.ROJO);
+                    color = HerramientasColor.obtenerRGBdeGris(color);
 
                     int rgb = HerramientasColor.acumularColor(aux.getRGB(x, y), color);
                     aux.setRGB(x, y, rgb);
@@ -83,12 +84,19 @@ public NumeroComplejo[][] obtenerDatosPorCanal(BufferedImage imagenOriginal, Can
         return aux;
 
     }
+    
+    //Proceso iterativo para la trasformada
+    public void aplicarFiltro (NumeroComplejo[][]filtro){
+        
+    }
 
-    private int obtenerColorRealDeFrecuencia(int ejeX, int ejeY, NumeroComplejo[][] transformada, CanalColor canal) {
+
+    private int obtenerColorRealDeFrecuenciaGrises(int ejeX, int ejeY, NumeroComplejo[][] transformada) {
         int color = (int) Math.abs(transformada[ejeX][ejeY].getParteReal());
         color = OperacionesBasicas.validar(color);
-        color = HerramientasColor.obtenerRGBPorCanal(color, canal);
+        color = HerramientasColor.obtenerRGBdeGris(color);
         return color;
-    }
-    
+
+}
+
 }
