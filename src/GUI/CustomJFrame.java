@@ -63,7 +63,7 @@ public class CustomJFrame extends JFrame {
         // Crear un JTextField adicional a la derecha
         JTextField extraTextField = new JTextField();
         extraTextField.setHorizontalAlignment(JTextField.CENTER);
-        extraTextField.setText("0");
+        extraTextField.setText("1");
 
         // Crear un botón "Calcular"
         JButton calculateButton = new JButton("Calcular");

@@ -25,6 +25,9 @@ public class Convolucion {
     }
     
     public Image convolucionar(int[][] mascara, int div){
+        if(div==0){
+            div=1;
+        }
         BufferedImage aux = new BufferedImage(imagenOriginal.getWidth(), imagenOriginal.getHeight(), imagenOriginal.getType());
         // masc2;
 
